@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.ponysoft.models.QuickAllModel;
+import com.ponysoft.models.USStateModel;
+import com.ponysoft.models.USStatesListModel;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,9 +69,16 @@ public class DataAPI {
         public void success(int code, QuickAllModel model);
     }
 
+    public interface OnUSStateListener extends OnListener {
+        public void success(int code, USStateModel model);
+    }
+
+    public interface OnUSStatesListener extends OnListener {
+        public void success(int code, List<USStateModel> list);
+    }
+
     //
     // @name: getQuickAll
-    // @parameters:
     // @description: 获取所有的感染者的名单
     //
     public void getQuickAll(final OnQuickAllListener listener) {
@@ -85,9 +95,51 @@ public class DataAPI {
 
                 QuickAllModel model = _gson.fromJson(response.body().string(), QuickAllModel.class);
 
-                Log.i("getQuickAll", String.valueOf(model.active));
-
                 listener.success(0, model);
+            }
+        });
+    }
+
+    //
+    // @name: getUSStatsAll
+    // @description: 获取美国所有州的感染数据
+    //
+    public void getUSStatesAll(final OnUSStatesListener listener) {
+
+        _GET("https://corona.lmao.ninja/states", new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                listener.fail(-1, "getUSStatesAll fail...");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                USStatesListModel model = _gson.fromJson(response.body().string(), USStatesListModel.class);
+
+                listener.success(0, model.list);
+            }
+        });
+    }
+
+    //
+    // @name: getUSStateAll
+    // @params: state 州名
+    // @description: 获取美国没一个州的数据
+    public void getUSStateAll(String state, OnUSStateListener listener) {
+
+        String url = "https://corona.lmao.ninja/states/" + state;
+
+        _GET(url, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
             }
         });
     }

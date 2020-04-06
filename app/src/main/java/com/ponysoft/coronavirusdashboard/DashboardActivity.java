@@ -7,7 +7,7 @@ import android.util.Log;
 import com.ponysoft.api.DataAPI;
 import com.ponysoft.models.QuickAllModel;
 
-public class MainActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

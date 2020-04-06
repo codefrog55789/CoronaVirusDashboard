@@ -134,7 +134,7 @@ public class DataAPI {
         _GET(url, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                
+
             }
 
             @Override
@@ -142,5 +142,49 @@ public class DataAPI {
 
             }
         });
+    }
+
+    //
+    // @name: getYesterdayAll
+    // @description: 获取昨日所有国家的数据
+    //
+    public void getYesterdayAll() {}
+
+    //
+    // @name: getYesterdayByCountry
+    // @param: country
+    // @description: 通过国家名称获取数据
+    public void getYesterdayByCountry(String country) {}
+
+    //
+    // @name: getYesterdayByCountries
+    // @params: {country, country...}
+    // @description: 通过多个国家名称获取数据
+    public void getYesterdayByCountries(List<String> countries) {
+
+    }
+
+    //
+    // @name: getCountriesAll
+    // @params:
+    // @description: 获取所有国家的数据
+    public void getCountiesAll() {
+
+    }
+
+    //
+    // @name: getCountryAllByName
+    // @params: country
+    // @description: 通过国家的名字获取数据
+    public void getCountryAllByName(String name) {
+
+    }
+
+    //
+    // @name: getCountriesDataByNames
+    // @params: {country, country ...}
+    // @description: 通过多个国家的名字获取数据
+    public void getCountriesDataByNames(List<String> countries) {
+
     }
 }

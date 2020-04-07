@@ -148,13 +148,41 @@ public class DataAPI {
     // @name: getYesterdayAll
     // @description: 获取昨日所有国家的数据
     //
-    public void getYesterdayAll() {}
+    public void getYesterdayAll() {
+
+        _GET("https://corona.lmao.ninja/yesterday", new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+            }
+        });
+    }
 
     //
     // @name: getYesterdayByCountry
     // @param: country
     // @description: 通过国家名称获取数据
-    public void getYesterdayByCountry(String country) {}
+    public void getYesterdayByCountry(String country) {
+
+        String url = "https://corona.lmao.ninja/yesterday/" + country;
+
+        _GET(url, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+            }
+        });
+    }
 
     //
     // @name: getYesterdayByCountries
@@ -170,6 +198,17 @@ public class DataAPI {
     // @description: 获取所有国家的数据
     public void getCountiesAll() {
 
+        _GET("https://corona.lmao.ninja/countries", new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+            }
+        });
     }
 
     //
@@ -178,6 +217,19 @@ public class DataAPI {
     // @description: 通过国家的名字获取数据
     public void getCountryAllByName(String name) {
 
+        String url = "https://corona.lmao.ninja/countries/" + name;
+
+        _GET(url, new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+            }
+        });
     }
 
     //

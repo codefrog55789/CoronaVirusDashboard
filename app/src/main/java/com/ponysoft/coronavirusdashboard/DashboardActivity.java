@@ -23,7 +23,6 @@ public class DashboardActivity extends AppCompatActivity {
 
             @Override
             public void fail(int code, String message) {
-
             }
         });
     }

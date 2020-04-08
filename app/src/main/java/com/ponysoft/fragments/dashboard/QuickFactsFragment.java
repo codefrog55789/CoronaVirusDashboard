@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ponysoft.adapter.CountryListAdapter;
 import com.ponysoft.api.DataAPI;
 import com.ponysoft.coronavirusdashboard.R;
+import com.ponysoft.models.CountryModel;
 import com.ponysoft.models.QuickAllModel;
 import com.ponysoft.utils.DateFormatter;
 import com.ponysoft.utils.Formatter;
@@ -19,6 +22,7 @@ import com.ponysoft.utils.Formatter;
 import org.w3c.dom.Text;
 
 import java.text.Normalizer;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +40,10 @@ public class QuickFactsFragment extends Fragment {
     private String mParam2;
 
     private View fragmentView = null;
+
+    private ListView listView = null;
+    private List<CountryModel> countriesList = null;
+    private CountryListAdapter adapter = null;
 
     public QuickFactsFragment() {
         // Required empty public constructor
@@ -73,6 +81,9 @@ public class QuickFactsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_quick_facts, container, false);
+
+        listView = (ListView)fragmentView.findViewById(R.id.id_qucik_facts_list_view);
+
         return fragmentView;
     }
 
@@ -133,5 +144,7 @@ public class QuickFactsFragment extends Fragment {
 
     private void updateWorldAll() {
 
+
     }
 }
+

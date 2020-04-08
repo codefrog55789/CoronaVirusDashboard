@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp"
                         android:layout_marginLeft="15dp"
-                        android:text="World"
+                        android:text="World COVID-19 Status"
                         android:textColor="@color/colorPrimaryFont"
                         android:textSize="28dp"
                         />
@@ -186,6 +186,17 @@
                         android:textColor="@color/colorPrimaryFont"
                         android:textSize="15dp"
                         />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+                        <ListView
+                            android:id="@+id/id_qucik_facts_list_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            ></ListView>
+                    </LinearLayout>
                 </LinearLayout>
             </com.kproduce.roundcorners.RoundFrameLayout>
         </LinearLayout>

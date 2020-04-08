@@ -4,6 +4,7 @@ package com.ponysoft.api;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.ponysoft.models.CountryModel;
 import com.ponysoft.models.QuickAllModel;
 import com.ponysoft.models.USStateModel;
 import com.ponysoft.models.USStatesListModel;
@@ -62,19 +63,23 @@ public class DataAPI {
     // @description: http相关请求的interfaces
     //
     public interface OnListener {
-        public void fail(int code, String message);
+        void fail(int code, String message);
     }
 
     public interface OnQuickAllListener extends OnListener {
-        public void success(int code, QuickAllModel model);
+        void success(int code, QuickAllModel model);
     }
 
     public interface OnUSStateListener extends OnListener {
-        public void success(int code, USStateModel model);
+        void success(int code, USStateModel model);
     }
 
     public interface OnUSStatesListener extends OnListener {
-        public void success(int code, List<USStateModel> list);
+        void success(int code, List<USStateModel> list);
+    }
+
+    public interface OnYesterdayListener extends OnListener {
+        void success(int code, List<CountryModel> list);
     }
 
     //

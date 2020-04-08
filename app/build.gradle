@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion "29.0.3"
 
     defaultConfig {
@@ -36,4 +36,5 @@ dependencies {
     // libraries
     implementation("com.squareup.okhttp3:okhttp:4.4.0")
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.KuangGang:RoundCorners:1.0.4'
 }

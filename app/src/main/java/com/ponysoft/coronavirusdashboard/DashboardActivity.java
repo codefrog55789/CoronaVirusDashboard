@@ -29,7 +29,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new QuickFactsFragment());
-        fragmentArrayList.add(new ConDashboardFragment());
+        fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_USA));
+        fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_CHINA));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         DashboardFragmentPageAdapter dashboardFragmentPageAdapter = new DashboardFragmentPageAdapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

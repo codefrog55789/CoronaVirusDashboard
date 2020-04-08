@@ -2,12 +2,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
     tools:context="com.ponysoft.fragments.dashboard.QuickFactsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <ScrollView
         android:layout_height="match_parent"
-        android:text="quick facts fragment!!" />
+        android:layout_width="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Quick Facts -->
+            <com.kproduce.roundcorners.RoundFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:rTopRightRadius="10dp"
+                app:rBottomRightRadius="10dp"
+                app:rTopLeftRadius="10dp"
+                app:rBottomLeftRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp"
+                    >
+
+                    <!-- 标题 -->
+                    <TextView
+                        android:id="@+id/id_quick_facts_title_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Quick Facts"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="28dp"
+                        android:textAlignment="center"
+                        />
+                    <TextView
+                        android:id="@+id/id_quick_facts_status_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="updated: a few seconds ago"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="12dp"
+                        android:textAlignment="center"
+                        />
+
+                    <!-- 实际确诊人数 -->
+                    <TextView
+                        android:id="@+id/id_quick_facts_confirmed_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorConfirmedFont"
+                        android:textSize="40dp"
+                        android:text="143,342,232"
+                        />
+                    <TextView
+                        android:id="@+id/id_quick_facts_confirmed_label_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="12dp"
+                        android:text="Total Confirmed Cases"
+                        />
+
+                    <!-- 总计已故 -->
+                    <TextView
+                        android:id="@+id/id_quick_facts_deceased_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorDeceasedFont"
+                        android:textSize="40dp"
+                        android:text="82,094"
+                        />
+                    <TextView
+                        android:id="@+id/id_quick_facts_deceased_label_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="12dp"
+                        android:text="Total Decased"
+                        />
+
+                    <!-- 总计重症 -->
+                    <TextView
+                        android:id="@+id/id_quick_facts_serious_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorSeriousFont"
+                        android:textSize="40dp"
+                        android:text="39,807"
+                        />
+                    <TextView
+                        android:id="@+id/id_quick_facts_serious_label_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="12dp"
+                        android:text="Total Serious"
+                        />
+
+                    <!-- 总计治疗好 -->
+                    <TextView
+                        android:id="@+id/id_quick_facts_recovered_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorRecoveredFont"
+                        android:textSize="40dp"
+                        android:text="305,592"
+                        />
+                    <TextView
+                        android:id="@+id/id_quick_facts_recovered_label_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="12dp"
+                        android:text="Total Serious"
+                        />
+                </LinearLayout>
+            </com.kproduce.roundcorners.RoundFrameLayout>
+
+            <com.kproduce.roundcorners.RoundFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:rTopRightRadius="10dp"
+                app:rBottomRightRadius="10dp"
+                app:rTopLeftRadius="10dp"
+                app:rBottomLeftRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/id_World_title_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="World"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="28dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/id_recovered_title_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="RECOVERED:"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="15dp"
+                        />
+                </LinearLayout>
+            </com.kproduce.roundcorners.RoundFrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

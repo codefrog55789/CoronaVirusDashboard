@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.ponysoft.adapter.CountryListAdapter;
 import com.ponysoft.api.DataAPI;
 import com.ponysoft.coronavirusdashboard.R;
+import com.ponysoft.models.CountriesListModel;
 import com.ponysoft.models.CountryModel;
 import com.ponysoft.models.QuickAllModel;
 import com.ponysoft.utils.DateFormatter;
@@ -105,6 +107,22 @@ public class QuickFactsFragment extends Fragment {
             public void fail(int code, String message) {
             }
         });
+
+        DataAPI.shareInstance().getYesterdayAll(new DataAPI.OnYesterdayListener() {
+            @Override
+            public void success(int code, CountriesListModel model) {
+
+                if (0 == code) {
+
+                    updateWorldAll(model);
+                }
+            }
+
+            @Override
+            public void fail(int code, String message) {
+
+            }
+        });
     }
 
     private void updateQuickFacts(QuickAllModel model) {
@@ -142,9 +160,9 @@ public class QuickFactsFragment extends Fragment {
         }
     }
 
-    private void updateWorldAll() {
+    private void updateWorldAll(CountriesListModel model) {
 
-
+        Log.d("updateWorldAll -> ", model.toString());
     }
 }
 

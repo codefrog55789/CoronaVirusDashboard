@@ -2,17 +2,26 @@ package com.ponysoft.api;
 
 
 import android.util.Log;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.ponysoft.models.CountriesListModel;
 import com.ponysoft.models.CountryModel;
 import com.ponysoft.models.QuickAllModel;
 import com.ponysoft.models.USStateModel;
 import com.ponysoft.models.USStatesListModel;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,6 +41,7 @@ public class DataAPI {
 
     private OkHttpClient _client = null;
     private Gson _gson = null;
+    private JsonParser _parser = null;
 
     public static DataAPI shareInstance() {
 
@@ -48,6 +58,8 @@ public class DataAPI {
         _client = new OkHttpClient();
 
         _gson = new Gson();
+
+        _parser = new JsonParser();
     }
 
     private void _GET(String url, Callback callback) {
@@ -79,7 +91,7 @@ public class DataAPI {
     }
 
     public interface OnYesterdayListener extends OnListener {
-        void success(int code, List<CountryModel> list);
+        void success(int code, CountriesListModel model);
     }
 
     //
@@ -132,7 +144,7 @@ public class DataAPI {
     // @name: getUSStateAll
     // @params: state 州名
     // @description: 获取美国没一个州的数据
-    public void getUSStateAll(String state, OnUSStateListener listener) {
+    public void getUSStateAll(String state, final OnUSStateListener listener) {
 
         String url = "https://corona.lmao.ninja/states/" + state;
 
@@ -144,7 +156,6 @@ public class DataAPI {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-
             }
         });
     }
@@ -153,16 +164,63 @@ public class DataAPI {
     // @name: getYesterdayAll
     // @description: 获取昨日所有国家的数据
     //
-    public void getYesterdayAll() {
+    public void getYesterdayAll(final OnYesterdayListener listener) {
 
         _GET("https://corona.lmao.ninja/yesterday", new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                listener.fail(-1, "getYesterdayAll...");
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                CountriesListModel model = new CountriesListModel();
+                try {
+                    String jsonData = response.body().string();
+                    JSONArray jsonArray = new JSONArray(jsonData);
+
+                    for (int i = 0; i < jsonArray.length(); i ++) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        CountryModel countryModel = new CountryModel();
+
+                        countryModel.country = jsonObject.getString("country");
+                        countryModel.updated = jsonObject.getLong("updated");
+                        countryModel.cases = jsonObject.getInt("cases");
+                        countryModel.todayCases = jsonObject.getInt("todayCases");
+                        countryModel.deaths = jsonObject.getInt("deaths");
+                        countryModel.todayDeaths = jsonObject.getInt("todayDeaths");
+                        countryModel.recovered = jsonObject.getInt("recovered");
+                        countryModel.active = jsonObject.getInt("active");
+                        countryModel.critical = jsonObject.getInt("critical");
+                        countryModel.casesPerOneMillion = jsonObject.getString("casesPerOneMillion");
+                        countryModel.deathsPerOneMillion = jsonObject.getString("deathsPerOneMillion");
+                        countryModel.tests = jsonObject.getInt("tests");
+                        countryModel.testsPerOneMillion = jsonObject.getString("testsPerOneMillion");
+
+                        JSONObject countryInfoObject = jsonObject.getJSONObject("countryInfo");
+
+                        if (null != countryInfoObject) {
+
+                            countryModel.countryInfo._id = countryInfoObject.getInt("_id");
+                            countryModel.countryInfo.flag = countryInfoObject.getString("flag");
+                            countryModel.countryInfo.iso2 = countryInfoObject.getString("iso2");
+                            countryModel.countryInfo.ios3 = countryInfoObject.getString("iso3");
+                            countryModel.countryInfo.lat = countryInfoObject.getInt("lat");
+                            countryModel.countryInfo.lng = countryInfoObject.getInt("long");
+                        }
+
+                        model.list.add(countryModel);
+
+                        listener.success(0, model);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    listener.fail(-1, "fail parse...");
+                }
 
             }
         });

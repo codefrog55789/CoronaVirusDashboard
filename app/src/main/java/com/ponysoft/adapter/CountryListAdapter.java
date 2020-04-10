@@ -23,10 +23,6 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
     private List<CountryModel> countriesList = null;
     private int resourceId = 0;
 
-    public CountryListAdapter(@NonNull Context context, int resource) {
-        super(context, resource);
-    }
-
     public CountryListAdapter(@NonNull Context context, int resource, List<CountryModel> list) {
         super(context, resource);
 

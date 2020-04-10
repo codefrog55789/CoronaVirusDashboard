@@ -11,10 +11,10 @@ public class CountryModel {
     public int recovered;
     public int active;
     public int critical;
-    public String casesPerOneMillion;
-    public String deathsPerOneMillion;
+    public int casesPerOneMillion;
+    public int deathsPerOneMillion;
     public int tests;
-    public String testsPerOneMillion;
+    public int testsPerOneMillion;
 
     public class CountryInfoModel {
         public int _id;

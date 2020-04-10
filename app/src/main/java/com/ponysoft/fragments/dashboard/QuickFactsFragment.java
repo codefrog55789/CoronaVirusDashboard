@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ponysoft.adapter.CountryListAdapter;
 import com.ponysoft.api.DataAPI;
+import com.ponysoft.coronavirusdashboard.DashboardActivity;
 import com.ponysoft.coronavirusdashboard.R;
 import com.ponysoft.models.CountriesListModel;
 import com.ponysoft.models.CountryModel;
@@ -46,6 +49,8 @@ public class QuickFactsFragment extends Fragment {
     private ListView listView = null;
     private List<CountryModel> countriesList = null;
     private CountryListAdapter adapter = null;
+
+    private ScrollView scrollView = null;
 
     public QuickFactsFragment() {
         // Required empty public constructor
@@ -85,6 +90,19 @@ public class QuickFactsFragment extends Fragment {
         fragmentView = inflater.inflate(R.layout.fragment_quick_facts, container, false);
 
         listView = (ListView)fragmentView.findViewById(R.id.id_qucik_facts_list_view);
+        adapter = new CountryListAdapter(getContext(), R.layout.list_item, null);
+        listView.setAdapter(adapter);
+
+        // disable scrollview scroll event
+        //
+        scrollView = (ScrollView)fragmentView.findViewById(R.id.id_quick_facts_scroll_view);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scrollView.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
         return fragmentView;
     }
@@ -110,11 +128,17 @@ public class QuickFactsFragment extends Fragment {
 
         DataAPI.shareInstance().getYesterdayAll(new DataAPI.OnYesterdayListener() {
             @Override
-            public void success(int code, CountriesListModel model) {
+            public void success(int code, final CountriesListModel model) {
 
                 if (0 == code) {
 
-                    updateWorldAll(model);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            updateWorldAllUI(model);
+                        }
+                    });
                 }
             }
 
@@ -160,9 +184,14 @@ public class QuickFactsFragment extends Fragment {
         }
     }
 
-    private void updateWorldAll(CountriesListModel model) {
+    private void updateWorldAllUI(CountriesListModel model) {
 
-        Log.d("updateWorldAll -> ", model.toString());
+        if (null == model) return ;
+        if (null != adapter) {
+
+            adapter.setCountriesList(model.list);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
 

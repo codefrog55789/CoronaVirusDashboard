@@ -194,16 +194,21 @@ public class DataAPI {
                         countryModel.recovered = jsonObject.getInt("recovered");
                         countryModel.active = jsonObject.getInt("active");
                         countryModel.critical = jsonObject.getInt("critical");
-                        countryModel.casesPerOneMillion = jsonObject.getString("casesPerOneMillion");
-                        countryModel.deathsPerOneMillion = jsonObject.getString("deathsPerOneMillion");
+                        countryModel.casesPerOneMillion = Integer.parseInt(jsonObject.getString("casesPerOneMillion"));
+                        countryModel.deathsPerOneMillion = Integer.parseInt(jsonObject.getString("deathsPerOneMillion"));
                         countryModel.tests = jsonObject.getInt("tests");
-                        countryModel.testsPerOneMillion = jsonObject.getString("testsPerOneMillion");
+                        countryModel.testsPerOneMillion = Integer.parseInt(jsonObject.getString("testsPerOneMillion"));
 
                         JSONObject countryInfoObject = jsonObject.getJSONObject("countryInfo");
 
                         if (null != countryInfoObject) {
 
-                            countryModel.countryInfo._id = countryInfoObject.getInt("_id");
+                            String _id = countryInfoObject.getString("_id");
+                            if (_id.equals("null")) {
+                                countryModel.countryInfo._id = -999;
+                            } else {
+                                countryModel.countryInfo._id = Integer.parseInt(_id);
+                            }
                             countryModel.countryInfo.flag = countryInfoObject.getString("flag");
                             countryModel.countryInfo.iso2 = countryInfoObject.getString("iso2");
                             countryModel.countryInfo.ios3 = countryInfoObject.getString("iso3");
@@ -212,8 +217,14 @@ public class DataAPI {
                         }
 
                         model.list.add(countryModel);
+                    }
+
+                    if (null != model) {
 
                         listener.success(0, model);
+                    } else {
+
+                        listener.fail(-1, "fail parse...");
                     }
 
                 } catch (JSONException e) {

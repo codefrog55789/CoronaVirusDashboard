@@ -1,6 +1,7 @@
 package com.ponysoft.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,18 +53,28 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
             viewHolder = (ViewHolder)view.getTag();
         }
 
-        // Update list item UI
-        //
-
         viewHolder.tv.setText("update list item ui...");
 
-        return super.getView(position, convertView, parent);
+        Log.d("CountryListAdapter", "update list item ui...");
+
+        return view;
     }
+
 
     @Nullable
     @Override
     public CountryModel getItem(int position) {
         return countriesList.get(position);
+    }
+
+    @Override
+    public int getCount() {
+        if (null == countriesList) return 0;
+        return countriesList.size();
+    }
+
+    public void setCountriesList(List<CountryModel> countriesList) {
+        this.countriesList = countriesList;
     }
 
     //

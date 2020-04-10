@@ -2,6 +2,7 @@ package com.ponysoft.fragments.dashboard;
 
 import android.os.Bundle;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.kproduce.roundcorners.RoundFrameLayout;
 import com.ponysoft.adapter.CountryListAdapter;
 import com.ponysoft.api.DataAPI;
 import com.ponysoft.coronavirusdashboard.DashboardActivity;
@@ -34,7 +36,7 @@ import java.util.List;
  * Use the {@link QuickFactsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuickFactsFragment extends Fragment {
+public class QuickFactsFragment extends Fragment implements IBaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,7 +52,11 @@ public class QuickFactsFragment extends Fragment {
     private List<CountryModel> countriesList = null;
     private CountryListAdapter adapter = null;
 
-    private ScrollView scrollView = null;
+    private NestedScrollView scrollView = null;
+
+    private RoundFrameLayout quickFactsLayout = null;
+    private RoundFrameLayout savedLayout = null;
+    private RoundFrameLayout worldLayout = null;
 
     public QuickFactsFragment() {
         // Required empty public constructor
@@ -94,8 +100,7 @@ public class QuickFactsFragment extends Fragment {
         listView.setAdapter(adapter);
 
         // disable scrollview scroll event
-        //
-        scrollView = (ScrollView)fragmentView.findViewById(R.id.id_quick_facts_scroll_view);
+        scrollView = (NestedScrollView) fragmentView.findViewById(R.id.id_quick_facts_scroll_view);
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -104,6 +109,12 @@ public class QuickFactsFragment extends Fragment {
             }
         });
 
+        quickFactsLayout = (RoundFrameLayout)fragmentView.findViewById(R.id.id_quick_facts_layout);
+        worldLayout = (RoundFrameLayout)fragmentView.findViewById(R.id.id_world_layout);
+
+        quickFactsLayout.setVisibility(View.INVISIBLE);
+        worldLayout.setVisibility(View.INVISIBLE);
+
         return fragmentView;
     }
 
@@ -111,20 +122,38 @@ public class QuickFactsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        getQuikAllData();
+    }
+
+    public void getQuikAllData() {
+
         DataAPI.shareInstance().getQuickAll(new DataAPI.OnQuickAllListener() {
             @Override
-            public void success(int code, QuickAllModel model) {
+            public void success(int code, final QuickAllModel model) {
 
                 if (0 == code) {
 
-                    updateQuickFacts(model);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            updateQuickFacts(model);
+                        }
+                    });
                 }
+
+                getWorldAllData();
             }
 
             @Override
             public void fail(int code, String message) {
+
+                getWorldAllData();
             }
         });
+    }
+
+    public void getWorldAllData() {
 
         DataAPI.shareInstance().getYesterdayAll(new DataAPI.OnYesterdayListener() {
             @Override
@@ -140,11 +169,14 @@ public class QuickFactsFragment extends Fragment {
                         }
                     });
                 }
+
+                endRefresh();
             }
 
             @Override
             public void fail(int code, String message) {
 
+                endRefresh();
             }
         });
     }
@@ -179,9 +211,11 @@ public class QuickFactsFragment extends Fragment {
 
         // recovered
         TextView recoveredTextView = (TextView)fragmentView.findViewById(R.id.id_quick_facts_recovered_tv);
-        if (null == recoveredTextView) {
+        if (null != recoveredTextView) {
             recoveredTextView.setText(Formatter.numberFormat(model.recovered));
         }
+
+        quickFactsLayout.setVisibility(View.VISIBLE);
     }
 
     private void updateWorldAllUI(CountriesListModel model) {
@@ -191,6 +225,24 @@ public class QuickFactsFragment extends Fragment {
 
             adapter.setCountriesList(model.list);
             adapter.notifyDataSetChanged();
+        }
+
+        worldLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void refreshData() {
+
+        getQuikAllData();
+    }
+
+    @Override
+    public void endRefresh() {
+
+        DashboardActivity dashboardActivity = (DashboardActivity)getActivity();
+        if (null != dashboardActivity) {
+
+            dashboardActivity.endRefresh();
         }
     }
 }

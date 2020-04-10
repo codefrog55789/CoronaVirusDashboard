@@ -7,10 +7,24 @@
     tools:context=".DashboardActivity"
     android:background="@color/backgroundColor">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/dashboard_view_pager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/dashboard_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></androidx.viewpager.widget.ViewPager>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

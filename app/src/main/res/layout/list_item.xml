@@ -4,11 +4,65 @@
     android:layout_height="50dp"
     android:orientation="horizontal"
     >
-    <TextView
-        android:id="@+id/id_list_item_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="#ffffff"
-        android:text="list item..."
-        />
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        >
+        <ImageView
+            android:id="@+id/id_list_item_imgview"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            ></ImageView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/id_list_item_country_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                />
+            <TextView
+                android:id="@+id/id_list_item_confirmed_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:textColor="@color/colorConfirmedFont"
+                android:textSize="13dp"
+                />
+            <TextView
+                android:id="@+id/id_list_item_deceased_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:textColor="@color/colorDeceasedFont"
+                android:textSize="13dp"
+                />
+            <TextView
+                android:id="@+id/id_list_item_recovered_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:layout_weight="1.0"
+                android:layout_gravity="center"
+                android:textColor="@color/colorRecoveredFont"
+                android:textSize="13dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

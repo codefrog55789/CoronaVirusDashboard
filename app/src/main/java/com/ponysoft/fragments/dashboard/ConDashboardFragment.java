@@ -15,7 +15,7 @@ import com.ponysoft.coronavirusdashboard.R;
  * Use the {@link ConDashboardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConDashboardFragment extends Fragment {
+public class ConDashboardFragment extends Fragment implements IBaseFragment {
 
     public enum ConDashboardFragmentType {
         CON_DASHBOARD_FRAGMENT_TYPE_USA,
@@ -82,5 +82,15 @@ public class ConDashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_con_dashboard, container, false);
+    }
+
+    @Override
+    public void refreshData() {
+
+    }
+
+    @Override
+    public void endRefresh() {
+
     }
 }

@@ -5,39 +5,70 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.ponysoft.fragments.dashboard.ConDashboardFragment;
+import com.ponysoft.fragments.dashboard.IBaseFragment;
 import com.ponysoft.fragments.dashboard.QuickFactsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private List<Fragment> fragmentArrayList = null;
+    private DashboardFragmentPageAdapter dashboardFragmentPageAdapter = null;
+    private ViewPager viewPager = null;
+
+    private SwipeRefreshLayout swipeRefreshLayout = null;
+    private RecyclerView recyclerView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initial Fragments
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_main);
+        recyclerView = (RecyclerView)findViewById(R.id.rv_main);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
+        // Initial Fragments
         fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new QuickFactsFragment());
         fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_USA));
         fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_CHINA));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        DashboardFragmentPageAdapter dashboardFragmentPageAdapter = new DashboardFragmentPageAdapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        dashboardFragmentPageAdapter = new DashboardFragmentPageAdapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         dashboardFragmentPageAdapter.setFragmentList(fragmentArrayList);
 
-        ViewPager viewPager = (ViewPager)findViewById(R.id.dashboard_view_pager);
+        viewPager = (ViewPager)findViewById(R.id.dashboard_view_pager);
         viewPager.setAdapter(dashboardFragmentPageAdapter);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        if (null != viewPager && null != dashboardFragmentPageAdapter) {
+
+            IBaseFragment iBaseFragment = (IBaseFragment)dashboardFragmentPageAdapter.getItem(viewPager.getCurrentItem());
+            if (null != iBaseFragment) {
+
+                iBaseFragment.refreshData();
+            }
+        }
+    }
+
+    public void endRefresh() {
+
+        if (null != swipeRefreshLayout) {
+
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     class DashboardFragmentPageAdapter extends FragmentPagerAdapter {

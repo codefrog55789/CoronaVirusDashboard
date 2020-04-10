@@ -1,8 +1,11 @@
 package com.ponysoft.api;
 
 
+import android.os.Build;
 import android.util.Log;
 import android.widget.ListView;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -20,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -172,6 +176,7 @@ public class DataAPI {
                 listener.fail(-1, "getYesterdayAll...");
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
@@ -221,6 +226,14 @@ public class DataAPI {
 
                     if (null != model) {
 
+                        model.list.sort(new Comparator<CountryModel>() {
+                            @Override
+                            public int compare(CountryModel o1, CountryModel o2) {
+                                if (o1.cases > o2.cases) return -1;
+                                if (o1.cases < o2.cases) return 1;
+                                return 0;
+                            }
+                        });
                         listener.success(0, model);
                     } else {
 

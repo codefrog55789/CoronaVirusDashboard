@@ -6,7 +6,7 @@
     android:background="@color/backgroundColor"
     tools:context="com.ponysoft.fragments.dashboard.QuickFactsFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/id_quick_facts_scroll_view"
         android:layout_height="match_parent"
         android:layout_width="fill_parent"
@@ -19,6 +19,7 @@
 
             <!-- Quick Facts -->
             <com.kproduce.roundcorners.RoundFrameLayout
+                android:id="@+id/id_quick_facts_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -47,16 +48,17 @@
                         android:layout_height="wrap_content"
                         android:text="Quick Facts"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="28dp"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
                         android:textAlignment="center"
                         />
                     <TextView
                         android:id="@+id/id_quick_facts_status_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="updated: a few seconds ago"
                         android:textColor="@color/colorPrimaryFont"
                         android:textSize="12dp"
+                        android:textStyle="italic|bold"
                         android:textAlignment="center"
                         />
 
@@ -68,8 +70,8 @@
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorConfirmedFont"
-                        android:textSize="40dp"
-                        android:text="143,342,232"
+                        android:textSize="42dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:id="@+id/id_quick_facts_confirmed_label_tv"
@@ -77,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="12dp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
                         android:text="Total Confirmed Cases"
                         />
 
@@ -89,8 +92,8 @@
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorDeceasedFont"
-                        android:textSize="40dp"
-                        android:text="82,094"
+                        android:textSize="42dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:id="@+id/id_quick_facts_deceased_label_tv"
@@ -98,7 +101,8 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="12dp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
                         android:text="Total Decased"
                         />
 
@@ -110,8 +114,8 @@
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorSeriousFont"
-                        android:textSize="40dp"
-                        android:text="39,807"
+                        android:textSize="42dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:id="@+id/id_quick_facts_serious_label_tv"
@@ -119,8 +123,9 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="12dp"
-                        android:text="Total Serious"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:text="Total Critical"
                         />
 
                     <!-- 总计治疗好 -->
@@ -131,8 +136,8 @@
                         android:layout_marginTop="20dp"
                         android:textAlignment="center"
                         android:textColor="@color/colorRecoveredFont"
-                        android:textSize="40dp"
-                        android:text="305,592"
+                        android:textSize="42dp"
+                        android:textStyle="bold"
                         />
                     <TextView
                         android:id="@+id/id_quick_facts_recovered_label_tv"
@@ -140,13 +145,15 @@
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="12dp"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
                         android:text="Total Recovered"
                         />
                 </LinearLayout>
             </com.kproduce.roundcorners.RoundFrameLayout>
 
             <com.kproduce.roundcorners.RoundFrameLayout
+                android:id="@+id/id_world_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
@@ -173,25 +180,28 @@
                         android:id="@+id/id_World_title_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
                         android:text="World COVID-19 Status"
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="28dp"
+                        android:textSize="26dp"
+                        android:textStyle="bold"
                         />
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/id_recovered_title_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="RECOVERED:"
+                        android:layout_marginLeft="5dp"
+                        android:text=""
                         android:textColor="@color/colorPrimaryFont"
-                        android:textSize="15dp"
-                        />
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        /-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
                         >
                         <ListView
                             android:id="@+id/id_qucik_facts_list_view"
@@ -202,6 +212,6 @@
                 </LinearLayout>
             </com.kproduce.roundcorners.RoundFrameLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

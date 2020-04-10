@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.ponysoft.coronavirusdashboard.R;
 import com.ponysoft.models.CountryModel;
+import com.ponysoft.utils.Formatter;
 
 import java.util.List;
 
@@ -45,7 +47,13 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
             view = LayoutInflater.from(getContext()).inflate(resourceId, null);
 
             viewHolder = new ViewHolder();
-            viewHolder.tv = (TextView)view.findViewById(R.id.id_list_item_tv);
+
+            viewHolder.imgView = (ImageView)view.findViewById(R.id.id_list_item_imgview);
+            viewHolder.countryTextView = (TextView)view.findViewById(R.id.id_list_item_country_tv);
+            viewHolder.confirmedTextView = (TextView)view.findViewById(R.id.id_list_item_confirmed_tv);
+            viewHolder.deceasedTextView = (TextView)view.findViewById(R.id.id_list_item_deceased_tv);
+            viewHolder.recoveredTextView = (TextView)view.findViewById(R.id.id_list_item_recovered_tv);
+
             view.setTag(viewHolder);
         } else {
 
@@ -53,9 +61,7 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
             viewHolder = (ViewHolder)view.getTag();
         }
 
-        viewHolder.tv.setText("update list item ui...");
-
-        Log.d("CountryListAdapter", "update list item ui...");
+        updateViewHolderUI(viewHolder, model);
 
         return view;
     }
@@ -64,6 +70,7 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
     @Nullable
     @Override
     public CountryModel getItem(int position) {
+        if (null == countriesList) return  null;
         return countriesList.get(position);
     }
 
@@ -77,10 +84,22 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
         this.countriesList = countriesList;
     }
 
-    //
-    // ViewHolder is a class to hold view
-    //
+    public void updateViewHolderUI(ViewHolder viewHolder, CountryModel model) {
+
+        if (null == viewHolder || null == model) return;
+
+        viewHolder.countryTextView.setText(model.country);
+        viewHolder.confirmedTextView.setText(Formatter.numberFormat(model.cases));
+        viewHolder.deceasedTextView.setText(Formatter.numberFormat(model.deaths));
+        viewHolder.recoveredTextView.setText(Formatter.numberFormat(model.recovered));
+    }
+
+
     class ViewHolder {
-        TextView tv;
+        public ImageView imgView;
+        public TextView countryTextView;
+        public TextView confirmedTextView;
+        public TextView deceasedTextView;
+        public TextView recoveredTextView;
     }
 }

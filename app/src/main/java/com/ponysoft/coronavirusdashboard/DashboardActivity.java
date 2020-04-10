@@ -11,11 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.content.Context;
 
 import com.ponysoft.fragments.dashboard.ConDashboardFragment;
 import com.ponysoft.fragments.dashboard.IBaseFragment;
@@ -45,8 +42,8 @@ public class DashboardActivity extends AppCompatActivity implements SwipeRefresh
         // Initial Fragments
         fragmentArrayList = new ArrayList<>();
         fragmentArrayList.add(new QuickFactsFragment());
-        fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_USA));
-        fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_CHINA));
+        //fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_USA));
+        //fragmentArrayList.add(new ConDashboardFragment(ConDashboardFragment.ConDashboardFragmentType.CON_DASHBOARD_FRAGMENT_TYPE_CHINA));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         dashboardFragmentPageAdapter = new DashboardFragmentPageAdapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);

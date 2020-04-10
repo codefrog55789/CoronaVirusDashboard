@@ -2,6 +2,7 @@ package com.ponysoft.coronavirusdashboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -10,6 +11,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.content.Context;
 
 import com.ponysoft.fragments.dashboard.ConDashboardFragment;
 import com.ponysoft.fragments.dashboard.IBaseFragment;
@@ -48,6 +54,21 @@ public class DashboardActivity extends AppCompatActivity implements SwipeRefresh
 
         viewPager = (ViewPager)findViewById(R.id.dashboard_view_pager);
         viewPager.setAdapter(dashboardFragmentPageAdapter);
+
+        // fix SwipeRefreshLayout, ViewPager confict
+        //
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                swipeRefreshLayout.setEnabled(false);
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        swipeRefreshLayout.setEnabled(true);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

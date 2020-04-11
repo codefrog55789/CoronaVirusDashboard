@@ -135,7 +135,10 @@ public class QuickFactsFragment extends Fragment implements IBaseFragment {
     public void onStart() {
         super.onStart();
 
-        EventBus.getDefault().register(this);
+        if (false == EventBus.getDefault().isRegistered(this)) {
+
+            EventBus.getDefault().register(this);
+        }
 
         getQuikAllData();
     }

@@ -34,7 +34,9 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
     public CountryListAdapter(@NonNull Context context, int resource, List<CountryModel> list) {
         super(context, resource);
 
-        EventBus.getDefault().register(this);
+        if (false == EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         this.countriesList = list;
         this.resourceId = resource;

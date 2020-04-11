@@ -166,8 +166,9 @@
                 app:rBottomLeftRadius="10dp"
                 >
                 <LinearLayout
+                    android:id="@+id/id_saved_linear_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     >
                     <TextView
@@ -181,6 +182,12 @@
                         android:textSize="26dp"
                         android:textStyle="bold"
                         />
+                    <LinearLayout
+                        android:id="@+id/id_saved_list_items_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        ></LinearLayout>
                 </LinearLayout>
             </com.kproduce.roundcorners.RoundFrameLayout>
 

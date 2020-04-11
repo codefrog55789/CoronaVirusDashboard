@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.ponysoft.coronavirusdashboard.R;
+import com.ponysoft.messages.MessageEvent;
 import com.ponysoft.models.CountryModel;
 import com.ponysoft.models.dbmodels.Saved;
-import com.ponysoft.utils.DBHelper;
 import com.ponysoft.utils.Formatter;
 import com.ponysoft.utils.dbs.SavedHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
 
     public CountryListAdapter(@NonNull Context context, int resource, List<CountryModel> list) {
         super(context, resource);
+
+        EventBus.getDefault().register(this);
 
         this.countriesList = list;
         this.resourceId = resource;
@@ -96,6 +101,26 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
         viewHolder.deceasedTextView.setText(Formatter.numberFormat(model.deaths));
         viewHolder.recoveredTextView.setText(Formatter.numberFormat(model.recovered));
 
+        if (null != savedList) {
+
+            boolean isExisted = false;
+            for (int i = 0; i < savedList.size(); i ++) {
+                Saved saved = (Saved)savedList.get(i);
+                if (saved.getIid() == model.countryInfo._id) {
+
+                    isExisted = true;
+                    break;
+                }
+            }
+
+            if (true == isExisted) {
+
+                viewHolder.imgView.setImageResource(R.drawable.star);
+            } else {
+
+                viewHolder.imgView.setImageResource(R.drawable.unstar);
+            }
+        }
 
 
         // click star
@@ -104,20 +129,29 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
             @Override
             public void onClick(View v) {
 
-                Log.d("viewHolder", "click" + model.countryInfo._id);
+                Saved saved = SavedHelper.shareInstace().findByIid(model.countryInfo._id);
+                if (null == saved) {
 
-                // viewHolder.imgView.setImageResource(R.drawable.star);
+                    SavedHelper.shareInstace().saveOrUpdate(new Saved(model.countryInfo._id));
 
-                // update db
-                SavedHelper.shareInstace().saveOrUpdate(new Saved(model.countryInfo._id));
+                    // notify to update
+                    savedList = SavedHelper.shareInstace().all();
+                    notifyDataSetChanged();
 
-                // notify to update
-                savedList = SavedHelper.shareInstace().all();
-                SavedHelper.shareInstace().close();
-
-                notifyDataSetChanged();
+                    // post refresh saved ui
+                    EventBus.getDefault().post(new MessageEvent("refresh saved ui", MessageEvent.MESSAGETYPE.MESSAGETYPE_REFRESH_SAVED_UI));
+                }
             }
         });
+    }
+
+    @Subscribe
+    public void onNitify(MessageEvent event) {
+        if (event.messageType == MessageEvent.MESSAGETYPE.MESSAGETYPE_REFRESH_LIST_DATA) {
+
+            savedList = SavedHelper.shareInstace().all();
+            notifyDataSetChanged();
+        }
     }
 
 

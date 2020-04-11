@@ -24,6 +24,16 @@ public class SavedHelper implements IDBHelper {
         dbManager = DBHelper.shareInstance();
     }
 
+    public Saved findByIid(int iid) {
+        try {
+            return dbManager.selector(Saved.class).where("iid", "=", iid).findFirst();
+        } catch (DbException e) {
+
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void saveOrUpdate(Saved saved) {
 
         try {

@@ -40,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity implements SwipeRefresh
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.srl_main);
         recyclerView = (RecyclerView)findViewById(R.id.rv_main);
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setRefreshing(true);
 
         // Initial Fragments
         fragmentArrayList = new ArrayList<>();

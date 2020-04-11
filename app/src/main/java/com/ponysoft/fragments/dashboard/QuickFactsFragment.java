@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -110,10 +111,12 @@ public class QuickFactsFragment extends Fragment implements IBaseFragment {
         });
 
         quickFactsLayout = (RoundFrameLayout)fragmentView.findViewById(R.id.id_quick_facts_layout);
+        savedLayout = (RoundFrameLayout)fragmentView.findViewById(R.id.id_saved_layout);
         worldLayout = (RoundFrameLayout)fragmentView.findViewById(R.id.id_world_layout);
 
-        quickFactsLayout.setVisibility(View.INVISIBLE);
-        worldLayout.setVisibility(View.INVISIBLE);
+        quickFactsLayout.setVisibility(View.GONE);
+        savedLayout.setVisibility(View.GONE);
+        worldLayout.setVisibility(View.GONE);
 
         return fragmentView;
     }

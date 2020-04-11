@@ -14,6 +14,7 @@
         android:paddingRight="5dp"
         >
         <LinearLayout
+            android:id="@+id/id_list_item_star_bg_layout"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -26,6 +27,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
                 android:src="@drawable/unstar"
+                android:clickable="false"
                 ></ImageView>
         </LinearLayout>
         <LinearLayout
@@ -40,7 +42,7 @@
                 android:textAlignment="center"
                 android:layout_weight="0.9"
                 android:layout_gravity="center"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimaryFont"
                 android:textSize="13dp"
                 />
             <TextView

@@ -18,6 +18,8 @@ import com.ponysoft.fragments.dashboard.ConDashboardFragment;
 import com.ponysoft.fragments.dashboard.IBaseFragment;
 import com.ponysoft.fragments.dashboard.QuickFactsFragment;
 
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +68,11 @@ public class DashboardActivity extends AppCompatActivity implements SwipeRefresh
                 return false;
             }
         });
+
+        // xutils3 init
+        //
+        x.Ext.init(getApplication());
+        x.Ext.setDebug(BuildConfig.DEBUG);
     }
 
     @Override

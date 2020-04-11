@@ -103,7 +103,7 @@
                         android:textColor="@color/colorPrimaryFont"
                         android:textSize="14dp"
                         android:textStyle="bold"
-                        android:text="Total Decased"
+                        android:text="Total Deceased"
                         />
 
                     <!-- 总计重症 -->
@@ -153,6 +153,38 @@
             </com.kproduce.roundcorners.RoundFrameLayout>
 
             <com.kproduce.roundcorners.RoundFrameLayout
+                android:id="@+id/id_saved_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:rTopRightRadius="10dp"
+                app:rBottomRightRadius="10dp"
+                app:rTopLeftRadius="10dp"
+                app:rBottomLeftRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:id="@+id/id_saved_title_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="Saved"
+                        android:textColor="@color/colorPrimaryFont"
+                        android:textSize="26dp"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+            </com.kproduce.roundcorners.RoundFrameLayout>
+
+            <com.kproduce.roundcorners.RoundFrameLayout
                 android:id="@+id/id_world_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,7 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:text="World COVID-19 Status"
                         android:textColor="@color/colorPrimaryFont"
                         android:textSize="26dp"

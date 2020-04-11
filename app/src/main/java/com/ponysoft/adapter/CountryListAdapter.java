@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,10 @@ import androidx.annotation.Nullable;
 
 import com.ponysoft.coronavirusdashboard.R;
 import com.ponysoft.models.CountryModel;
+import com.ponysoft.models.dbmodels.Saved;
+import com.ponysoft.utils.DBHelper;
 import com.ponysoft.utils.Formatter;
+import com.ponysoft.utils.dbs.SavedHelper;
 
 import java.util.List;
 
@@ -22,12 +26,14 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
 
     private List<CountryModel> countriesList = null;
     private int resourceId = 0;
+    private List<Saved> savedList = null;
 
     public CountryListAdapter(@NonNull Context context, int resource, List<CountryModel> list) {
         super(context, resource);
 
         this.countriesList = list;
         this.resourceId = resource;
+        this.savedList = SavedHelper.shareInstace().all();
     }
 
     @NonNull
@@ -44,6 +50,7 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
 
             viewHolder = new ViewHolder();
 
+            viewHolder.linearLayout = (LinearLayout)view.findViewById(R.id.id_list_item_star_bg_layout);
             viewHolder.imgView = (ImageView)view.findViewById(R.id.id_list_item_imgview);
             viewHolder.countryTextView = (TextView)view.findViewById(R.id.id_list_item_country_tv);
             viewHolder.confirmedTextView = (TextView)view.findViewById(R.id.id_list_item_confirmed_tv);
@@ -80,7 +87,7 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
         this.countriesList = countriesList;
     }
 
-    public void updateViewHolderUI(ViewHolder viewHolder, CountryModel model) {
+    public void updateViewHolderUI(final ViewHolder viewHolder, final CountryModel model) {
 
         if (null == viewHolder || null == model) return;
 
@@ -88,10 +95,34 @@ public class CountryListAdapter extends ArrayAdapter<CountryModel> {
         viewHolder.confirmedTextView.setText(Formatter.numberFormat(model.cases));
         viewHolder.deceasedTextView.setText(Formatter.numberFormat(model.deaths));
         viewHolder.recoveredTextView.setText(Formatter.numberFormat(model.recovered));
+
+
+
+        // click star
+        //
+        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d("viewHolder", "click" + model.countryInfo._id);
+
+                // viewHolder.imgView.setImageResource(R.drawable.star);
+
+                // update db
+                SavedHelper.shareInstace().saveOrUpdate(new Saved(model.countryInfo._id));
+
+                // notify to update
+                savedList = SavedHelper.shareInstace().all();
+                SavedHelper.shareInstace().close();
+
+                notifyDataSetChanged();
+            }
+        });
     }
 
 
     class ViewHolder {
+        public LinearLayout linearLayout;
         public ImageView imgView;
         public TextView countryTextView;
         public TextView confirmedTextView;
